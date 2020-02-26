@@ -75,6 +75,11 @@ app.get('/', (request, response) => {
     <li><a href="/bake?baked_good=loaves+of+bread&count=5">Bake 5 loaves of bread</a> — notice how we represent spaces in the URL.</li>
     <li><a href="/bake?baked_good=cupcakes&count=1138">Bake 1138 cupcakes</a></li>
     </ul>
+
+    <h2>Greeting Page!</h2>
+    <ul>
+    <li><a href="/greet"</a>Click here to see!</li>
+    </ul>
   `;
 
   let pageHtml = getLayoutHTML(content);
@@ -157,6 +162,35 @@ app.get('/bake', (request, response) => {
 
   response.send(getLayoutHTML(content));
 });
+
+app.get('/greet', (request, response) => {
+
+  let playerName = request.query.name;
+
+  if (playerName == undefined) {
+    let content = `
+    <h1>Hello!</h>
+    <h2>We haven't met yet, so please tell me your name!</h2>
+    <form method="GET" action="/greet">
+      <div class="form-section">
+        <label for="name">Add your name here:</label>
+        <input type="text" name="name" id="name" required>
+      </div>
+    </form>
+  `;
+    response.send(getLayoutHTML(content));
+  }
+  else {
+    let content = `
+    <h1>Hi!</h>
+    <h2>So your name is ${playerName}?</h2>
+    <h2>Welcome!</h2>
+    <p>${playerName}, I hope you are happy with the website so far.</p>
+  `;
+  response.send(getLayoutHTML(content));
+  }
+});
+
 
 let SERVER_PORT = process.env.PORT || 3000;
 
