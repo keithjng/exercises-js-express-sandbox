@@ -80,6 +80,11 @@ app.get('/', (request, response) => {
     <ul>
     <li><a href="/greet"</a>Click here to see!</li>
     </ul>
+
+    <h2>Time Page!</h2>
+    <ul>
+    <li><a href="/time"</a>Click here to get the time!</li>
+    </ul>
   `;
 
   let pageHtml = getLayoutHTML(content);
@@ -191,6 +196,21 @@ app.get('/greet', (request, response) => {
   }
 });
 
+app.get('/time', (request, response) => {
+
+  let today = new Date();
+
+  let currentTime = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' +today.getDate() + ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+  let content = `
+  <h1>So you're here for the time?</h>
+  <h2>I have it printed below. If you want the new time, refresh the page!</h2>
+  <h2>${currentTime}</h2>
+  `;
+  
+  response.send(getLayoutHTML(content));
+
+});
 
 let SERVER_PORT = process.env.PORT || 3000;
 
