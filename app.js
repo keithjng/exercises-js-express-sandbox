@@ -168,23 +168,29 @@ app.get('/greet', (request, response) => {
   let playerName = request.query.name;
 
   if (playerName == undefined) {
-    let content =`
+    let content = `
     <h1>Hello!</h>
-    <h2>There appears to be a lack of name in the URL!</h2>
-    <p>Please add one by typing "?name=" and your name after "greet"!</p>
-    `;
+    <h2>We haven't met yet, so please tell me your name!</h2>
+    <form method="GET" action="/greet">
+      <div class="form-section">
+        <label for="name">Add your name here:</label>
+        <input type="text" name="name" id="name" required>
+      </div>
+    </form>
+  `;
     response.send(getLayoutHTML(content));
   }
   else {
     let content = `
-    <h1>Hello!</h>
+    <h1>Hi!</h>
     <h2>So your name is ${playerName}?</h2>
     <h2>Welcome!</h2>
-    <p>${playerName}, please get me water...</p>
+    <p>${playerName}, I hope you are happy with the website so far.</p>
   `;
   response.send(getLayoutHTML(content));
   }
 });
+
 
 let SERVER_PORT = process.env.PORT || 3000;
 
